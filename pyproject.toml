@@ -44,7 +44,8 @@ dependencies = [
     "tree-sitter-python>=0.20.0",
     "tree-sitter-java>=0.20.0",
     "tree-sitter-c-sharp>=0.20.0",
-    "tree-sitter-typescript>=0.20.0"
+    "tree-sitter-typescript>=0.20.0",
+    "tree-sitter-cpp>=0.20.0"
 ]
 
 [project.optional-dependencies]
@@ -144,7 +145,8 @@ strict_equality = true
 [[tool.mypy.overrides]]
 module = [
     "tree_sitter.*",
-    "pyrsistent.*"
+    "pyrsistent.*",
+    "tree_sitter_cpp.*"
 ]
 ignore_missing_imports = true
 

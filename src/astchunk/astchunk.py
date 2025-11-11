@@ -122,8 +122,14 @@ class ASTChunk():
 
         for node in node_ancestors:
             if any([
+                # Python
                 node.type == "class_definition",
-                node.type == "function_definition"
+                node.type == "function_definition",
+                # C++
+                node.type == "class_specifier",
+                node.type == "struct_specifier",
+                node.type == "namespace_definition",
+                node.type == "template_declaration",
             ]):
                 chunk_ancestors.append(node.text.decode("utf8").split("\n")[0])
 
