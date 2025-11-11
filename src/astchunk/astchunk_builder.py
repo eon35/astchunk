@@ -28,6 +28,7 @@ class ASTChunkBuilder():
         self.max_chunk_size: int = configs['max_chunk_size']
         self.language: str = configs['language']
         self.metadata_template: str = configs['metadata_template']
+        self.pack_adjacent_windows: bool = configs.get('pack_adjacent_windows', True)
 
         if self.language == "python":
             self.parser = ts.Parser(ts.Language(tspython.language()))
@@ -128,11 +129,23 @@ class ASTChunkBuilder():
                     # Node fits in an empty window
                     current_window.append(ASTNode(node, node_size, ancestors))
                     current_window_size += node_size
+
+                    # If not packing adjacent windows, yield immediately
+                    if not self.pack_adjacent_windows:
+                        yield current_window
+                        current_window = []
+                        current_window_size = 0
                     
             # Case 3: node fits in current window
             else:
                 current_window.append(ASTNode(node, node_size, ancestors))
                 current_window_size += node_size
+
+                # If not packing adjacent windows, yield immediately
+                if not self.pack_adjacent_windows:
+                    yield current_window
+                    current_window = []
+                    current_window_size = 0
 
         # Add the last window if it's not empty
         if len(current_window) > 0:

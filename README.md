@@ -129,6 +129,9 @@ configs['chunk_overlap'] = 1
 # Add chunk expansion (metadata headers)
 configs['chunk_expansion'] = True
 
+# Disable packing adjacent windows
+configs['pack_adjacent_windows'] = False
+
 # NOTE: max_chunk_size apply to the chunks before overlapping or chunk expansion.
 # The final chunk size after overlapping or chunk expansion may exceed max_chunk_size.
 
